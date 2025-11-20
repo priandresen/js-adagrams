@@ -96,7 +96,6 @@ This repository has a baseline structure for the project that includes several f
 | package.json          | This is the [npm project description file](https://docs.npmjs.com/cli/v10/configuring-npm/package-json) for this project. It includes all of the dependencies, much like `requirements.txt` in our Python projects. It can also include other information such as scripts, descriptions, project versions, etc.    |
 | package-lock.json     | [package-lock.json](https://docs.npmjs.com/cli/v10/configuring-npm/package-lock-json) captures the exact dependency tree stored at any point in time. |
 | jest.config.js        | This is a configuration file for the Jest testing framework.                                                                                                                                                             |
-| babel.config.js       | This is a configuration file for the [Babel](https://babeljs.io/) compiler.                    |
 
 ## Implementation Requirements
 
