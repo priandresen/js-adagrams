@@ -26,8 +26,37 @@ const LETTER_POOL = {
   Y: 2,
   Z: 1
 };
-
+const LETTER_POOL_POINTS = {
+  A: 1,
+  B: 3,
+  C: 3,
+  D: 2,
+  E: 1,
+  F: 4,
+  G: 2,
+  H: 4,
+  I: 1,
+  J: 8,
+  K: 5,
+  L: 1,
+  M: 3,
+  N: 1,
+  O: 1,
+  P: 3,
+  Q: 10,
+  R: 1,
+  S: 1,
+  T: 1,
+  U: 1,
+  V: 4,
+  W: 4,
+  X: 8,
+  Y: 4,
+  Z: 10
+};
 const HAND_SIZE = 10;
+const BONUS_MIN_LENGTH = 7;
+const LENGTH_BONUS_POINTS = 8;
 
 export const drawLetters = () => {
   const hand = [];
@@ -49,22 +78,61 @@ export const drawLetters = () => {
   return hand;
 };
 
+export const createFrequencyObject = (array) => {
+  const frequencyObj = {};
+  for (const element of array){
+    const current = frequencyObj[element] || 0;
+    frequencyObj[element] = current + 1;
+  }
+  return frequencyObj;
+};
+
 export const usesAvailableLetters = (input, lettersInHand) => {
-  const word = input.ToUpperCase();
+  const upperWord = input.toUpperCase();
 
-  const lettersInHandObject = lettersInHand.fromEntries(lettersInHand.map(lettersInHand => [letter, 0]));
+  const handLetterFrequency = createFrequencyObject(lettersInHand);
+  const wordLetterFrequency = createFrequencyObject(upperWord);
 
-
-
-
-
-
+  for (const letter in wordLetterFrequency){
+    if (wordLetterFrequency[letter] > (handLetterFrequency[letter] || 0)){
+      return false;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  let score = 0;
+  const upperWord = word.toUpperCase();
+
+  if (upperWord.length === 0){
+    return score;
+  } else if (upperWord.length >= BONUS_MIN_LENGTH){
+    score += LENGTH_BONUS_POINTS;
+  }
+
+  for (const letter in upperWord){
+    score += LETTER_POOL_POINTS[upperWord[letter]];
+  }
+  return score;
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  let bestWord = words[0];
+  let bestScore = scoreWord(bestWord);
+
+  for (const word of words){
+    let score = scoreWord(word);
+    if (score > bestScore){
+      bestWord = word;
+      bestScore = score;
+    } else if (score === bestScore){
+        if (word.length === 10){
+          bestWord = word;
+        } else if (bestWord.length !== 10 && word.length < bestWord.length){
+          bestWord = word;
+        }
+    }
+  }
+  return { word: bestWord, score: bestScore };
 };
