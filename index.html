@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Priscilla Andrensen">
+  <link href="styles/style.css" rel="stylesheet">
+  <script type="module" src="src/puttingTogether.js"></script>
+  
+  <title>ADAGRAMS</title>
+</head>
+<body class="content">
+  <header class="header">
+    <div class="header-container">
+      <div class="titles">
+        <h1 id="main-title">ADAGRAMS</h1>
+        <h2 id="sub-title">Welcome to ADAGRAMS</h2>
+        </div>
+    </div>
+  </header>
+  <div class="content">
+    <nav class="nav">
+      <ul>
+        <li><a href="index.html">Play Game</a></li>
+        <li><a href="pages/facts.html">Instructions</a></li>
+      </ul>
+    </nav>
+    <main>
+        <div class = "game-container">
+            <h2>Let's Play!</h2>
+            <button id="draw-button">Draw Letters</button>
+            <ul id="tile-container">
+                <li id="tile1"></li>
+                <li id="tile2"></li>
+                <li id="tile3"></li>
+                <li id="tile4"></li>
+                <li id="tile5"></li>
+                <li id="tile6"></li>
+                <li id="tile7"></li>
+                <li id="tile8"></li>
+                <li id="tile9"></li>
+                <li id="tile10"></li>
+            </ul>
+            <div id="word-entry-container">
+                <input type="text" id="word-input" placeholder="Enter your word here"/>
+                <button id="submit-word-button">Submit Word</button>
+            </div>
+            <div id="result-container">Score: 0</div>
+            <section id="best-word">
+                <h3>Best Word:</h3>
+                <div id="best-word-result"></div>
+            </section>
+    </main>
+  </div>
+  <footer>
+    &copy;2025 ada Developers Academy Cohort 24
+  </footer>
+</body>
+</html>
