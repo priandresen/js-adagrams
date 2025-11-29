@@ -31,6 +31,10 @@ const drawPile = () => {
   for (let i = 0; i < 10; i++) {
     const tile = document.getElementById(`tile${i + 1}`);
     tile.textContent = letters[i];
+    
+    tile.onclick = () => {
+        entryContainer.value += letters[i];
+    };
   }
   state.letters = letters;
 };
@@ -38,6 +42,7 @@ const drawPile = () => {
 drawButton.addEventListener('click', drawPile);
 
 const entryContainer = document.getElementById('word-input');
+
 const entryContainerText = (event) => {
   const entry = event.target.value;
   return entry;
@@ -57,11 +62,30 @@ submitButton.addEventListener('click', () => {
         updateScore();
         updateBestWord(state.words, score);
         state.round += 1;
+        entryContainer.value = '';
     } else {
         resultContainer.textContent = 'Invalid word!';
     }
     if (state.round === 6) {
-        alert(`Game over! Your total score is ${state.score} points. The best word you played was "${state.bestWord}" for ${state.bestScore} points.`);
+        const gameContainer = document.getElementById('game-container');
+        const game = document.getElementById('game');
+        game.style.display = 'none';
+        const endScreen = document.createElement('div');
+        endScreen.id = 'end-screen';
+        gameContainer.appendChild(endScreen);
+        endScreen.innerHTML = `<h2>Game Over!</h2>
+        <p>Your total score is ${state.score} points.</p>
+        <p>The best word you played was "${state.bestWord}" for ${state.bestScore} points.</p>
+        <p>You played ${state.words.length} words:</p>
+        <p>${state.words.join(', ')}</p>`;
+        const restartButton = document.createElement('button');
+        restartButton.id = 'restart-button';
+        restartButton.textContent = 'Play Again';
+        endScreen.appendChild(restartButton);
+        restartButton.onclick = () => {
+            gameContainer.removeChild(endScreen);
+            game.style.display = 'block';
+        };
         startRound();
     }
 });

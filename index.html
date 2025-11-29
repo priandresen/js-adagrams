@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Priscilla Andrensen">
   <link href="styles/style.css" rel="stylesheet">
-  <script type="module" src="src/puttingTogether.js"></script>
+  <script type="module" src="src/onePlayer.js"></script>
   
   <title>ADAGRAMS</title>
 </head>
@@ -22,12 +22,15 @@
   <div class="content">
     <nav class="nav">
       <ul>
-        <li><a href="index.html">Play Game</a></li>
-        <li><a href="pages/facts.html">Instructions</a></li>
+        <li><a href="index.html">1 PLAYER</a></li>
+        <li><a href="pages/two-player.html">2 PLAYER</a></li>
+        <li><a href="pages/instructions.html">Instructions</a></li>
+
       </ul>
     </nav>
     <main>
-        <div class = "game-container">
+        <div  id="game-container">
+          <div id="game">
             <h2>Let's Play!</h2>
             <button id="draw-button">Draw Letters</button>
             <ul id="tile-container">
@@ -51,6 +54,7 @@
                 <h3>Best Word:</h3>
                 <div id="best-word-result"></div>
             </section>
+        </div>
     </main>
   </div>
   <footer>
