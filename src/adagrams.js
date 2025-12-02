@@ -132,13 +132,13 @@ export const highestScoreFrom = (words) => {
       bestWord = word;
       bestScore = score;
     } else if (score === bestScore){
-        if (word.length === 10){
-          bestWord = word;
-        } if (word.length ===10 && bestWord.length === 10){
-          return { word: bestWord, score: bestScore };
-        } else if (bestWord.length !== 10 && word.length < bestWord.length){
-          bestWord = word;
-        }
+      if (word.length === 10){
+        bestWord = word;
+      } if (word.length ===10 && bestWord.length === 10){
+        return { word: bestWord, score: bestScore };
+      } else if (bestWord.length !== 10 && word.length < bestWord.length){
+        bestWord = word;
+      }
     }
   }
   return { word: bestWord, score: bestScore };
