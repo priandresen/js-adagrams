@@ -58,8 +58,7 @@ const HAND_SIZE = 10;
 const BONUS_MIN_LENGTH = 7;
 const LENGTH_BONUS_POINTS = 8;
 
-export const drawLetters = () => {
-  const hand = [];
+export const createLetterPoolArray = () => {
   const letterPoolList = [];
 
   for (const [tile, numAvailable] of Object.entries(LETTER_POOL)){
@@ -67,6 +66,12 @@ export const drawLetters = () => {
       letterPoolList.push(tile);
     }
   }
+  return letterPoolList;
+};
+
+export const drawLetters = () => {
+  const hand = [];
+  const letterPoolList = createLetterPoolArray();
 
   while (hand.length != HAND_SIZE){
     let letterIndex = Math.floor(Math.random() * letterPoolList.length);

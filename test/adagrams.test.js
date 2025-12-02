@@ -3,6 +3,8 @@ import {
   usesAvailableLetters,
   scoreWord,
   highestScoreFrom,
+  createFrequencyObject,
+  createLetterPoolArray
 } from '../src/adagrams.js';
 
 const LETTER_POOL = {
@@ -35,6 +37,16 @@ const LETTER_POOL = {
 };
 
 describe('Adagrams', () => {
+
+  describe('CreateLetterPoolArray', () => {
+    it('creates an array from LETTER_POOL with correct frequencies', () => {
+      const letterPoolArray = createLetterPoolArray();
+      const frequencyObject = createFrequencyObject(letterPoolArray);
+
+      expect(frequencyObject).toEqual(LETTER_POOL);
+    });
+  });
+
   describe('drawLetters', () => {
     it('draws ten letters from the letter pool', () => {
       const drawn = drawLetters();
@@ -49,6 +61,12 @@ describe('Adagrams', () => {
       drawn.forEach((l) => {
         expect(l).toMatch(/^[A-Z]$/);
       });
+    });
+
+    it('returns exactly HAND_SIZE letters', () => {
+      const HAND_SIZE = 10;
+      const drawn = drawLetters();
+      expect(drawn).toHaveLength(HAND_SIZE);
     });
 
     it('does not draw a letter too many times', () => {
@@ -87,12 +105,42 @@ describe('Adagrams', () => {
       expect(isValid).toBe(false);
     });
 
+    it('returns false when word is longer than drawn letters', () => {
+      const drawn = ['D', 'O', 'G', 'X', 'X', 'X', 'X', 'X', 'X', 'X'];
+      const word = 'DOGGY';
+
+      const isValid = usesAvailableLetters(word, drawn);
+      expect(isValid).toBe(false);
+    });
+
+    it('is case insensitive when comparing letters', () => {
+      const drawn = ['D', 'O', 'G', 'X', 'X', 'X', 'X', 'X', 'X', 'X'];
+      const word = 'dog';
+
+      const isValid = usesAvailableLetters(word, drawn);
+      expect(isValid).toBe(true);
+    });
+
     it('returns false when word contains repeated letters more than in the drawn letters', () => {
       const drawn = ['D', 'O', 'G', 'X', 'X', 'X', 'X', 'X', 'X', 'X'];
       const word = 'GOOD';
 
       const isValid = usesAvailableLetters(word, drawn);
       expect(isValid).toBe(false);
+    });
+  });
+
+  describe ('createFrequencyObject', () => {
+    it('creates an accurate frequency object from an array of letters', () => {
+      const array = ['A', 'B', 'A', 'C', 'B', 'A'];
+      const correctFrequencyObject = {
+        A: 3,
+        B: 2,
+        C: 1,
+      };
+
+      const frequencyObject = createFrequencyObject(array);
+      expect(frequencyObject).toEqual(correctFrequencyObject);
     });
   });
 
