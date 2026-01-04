@@ -123,23 +123,28 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  let bestWord = words[0];
-  let bestScore = scoreWord(bestWord);
 
-  for (const word of words){
-    let score = scoreWord(word);
-    if (score > bestScore){
-      bestWord = word;
-      bestScore = score;
-    } else if (score === bestScore){
-      if (word.length === 10){
-        bestWord = word;
-      } if (word.length ===10 && bestWord.length === 10){
-        return { word: bestWord, score: bestScore };
-      } else if (bestWord.length !== 10 && word.length < bestWord.length){
-        bestWord = word;
+  const getScoreMap = words.map((word) => ({word, score: scoreWord(word)}));
+
+  const scores = getScoreMap;
+
+  const maxScore = Math.max(...scores.map((entry) => entry.score));
+
+  const topScoringWords = scores.filter((entry) => entry.score === maxScore).map((entry) => entry.word);
+
+  if (topScoringWords.length === 1){
+    return { word: topScoringWords[0], score: maxScore };
+  } else {
+    if (topScoringWords.filter((word => word.length === 10)).length > 0){
+      return { word: topScoringWords.find((word) => word.length === 10), score: maxScore };
+    } else {
+      let shortestWord = topScoringWords[0];
+      for (const word of topScoringWords){
+        if (word.length < shortestWord.length){
+          shortestWord = word;
+        }
       }
+      return { word: shortestWord, score: maxScore };
     }
   }
-  return { word: bestWord, score: bestScore };
 };
